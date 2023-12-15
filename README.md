@@ -38,7 +38,7 @@ chown -R prometheus:prometheus /var/lib/prometheus/
 ```
 
 		
-### Chép forder ``consoles`` và ``console_libraries`` vào
+### Chép folder ``consoles`` và ``console_libraries`` vào
 
 ```
 cp -r prometheus-2.47.0.linux-amd64/consoles/ /var/lib/prometheus/
@@ -49,13 +49,13 @@ chown -R prometheus:prometheus /var/lib/prometheus/
 ```
     
 
-### Tạo forder ``/etc/prometheus:``
+### Tạo folder ``/etc/prometheus:``
 
 ```
 mkdir /etc/prometheus
 ```
 		
-### Chép forder ``consoles`` và ``console_libries`` vào
+### Chép folder ``consoles`` và ``console_libries`` vào
 
 ```
 cp -r prometheus-2.47.0.linux-amd64/consoles/ /etc/prometheus/
