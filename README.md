@@ -8,20 +8,20 @@
 
 ## Cài đặt Prometheus
 
-### Tạo user prometheus
+Tạo user prometheus
 
 ```
 useradd -M -s /bin/false prometheus
 ```
 		
-### Tải Prometheus về bằng ``wget`` và giải nén
+Tải Prometheus về bằng ``wget`` và giải nén
 
 ```
 wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz
 tar -zxf prometheus-2.47.0.linux-amd64.tar.gz
 ```
 
-### Chép file Prometheus và ``promtool`` va ``/usr/local/bin/`` và cấp quyền cho người dùng prometheus:
+Chép file Prometheus và ``promtool`` va ``/usr/local/bin/`` và cấp quyền cho người dùng prometheus:
 
 ```
 cp prometheus-2.47.0.linux-amd64/prometheus /usr/local/bin/
@@ -30,7 +30,7 @@ chown -R prometheus:prometheus /usr/local/bin/prometheus
 chown -R prometheus:prometheus /usr/local/bin/promtool
 ```
 		
-### Tạo folder ``/var/lib/prometheus`` và cấp quyền cho người dùng prometheus
+Tạo folder ``/var/lib/prometheus`` và cấp quyền cho người dùng prometheus
 
 ```
 mkdir /var/lib/prometheus
@@ -38,7 +38,7 @@ chown -R prometheus:prometheus /var/lib/prometheus/
 ```
 
 		
-### Chép folder ``consoles`` và ``console_libraries`` vào
+Chép folder ``consoles`` và ``console_libraries`` vào
 
 ```
 cp -r prometheus-2.47.0.linux-amd64/consoles/ /var/lib/prometheus/
@@ -49,13 +49,13 @@ chown -R prometheus:prometheus /var/lib/prometheus/
 ```
     
 
-### Tạo folder ``/etc/prometheus:``
+Tạo folder ``/etc/prometheus:``
 
 ```
 mkdir /etc/prometheus
 ```
 		
-### Chép folder ``consoles`` và ``console_libraries`` vào
+Chép folder ``consoles`` và ``console_libraries`` vào
 
 ```
 cp -r prometheus-2.47.0.linux-amd64/consoles/ /etc/prometheus/
@@ -64,7 +64,7 @@ cp -r prometheus-2.47.0.linux-amd64/console_libraries/ /etc/prometheus/
 ```
 
 		
-### Chép file prometheus.yml vao /etc/prometheus và cấp quyền cho người dùng prometheus:
+Chép file prometheus.yml vao /etc/prometheus và cấp quyền cho người dùng prometheus:
 
 ```
 cp prometheus-2.47.0.linux-amd64/prometheus.yml /etc/prometheus/
@@ -73,7 +73,7 @@ chown -R prometheus:prometheus /etc/prometheus/
 ```
 
 		
-### Tạo file prometheus.service vao /etc/systemd/system/ có nội dung như sau:
+Tạo file prometheus.service vao /etc/systemd/system/ có nội dung như sau:
 
 ```
 [Unit]
@@ -95,7 +95,7 @@ ExecStart=/usr/local/bin/prometheus \
 WantedBy=multi-user.target
 ```
 		
-### Reload daemon và khởi động prometheus
+Khởi động lại daemon và khởi động prometheus
 
 ```
 systemctl daemon-reload
@@ -107,14 +107,14 @@ systemctl enable prometheus.service
 	
 # 2.Prometheus-Node Exporter
 ## Cài đặt Node Exporter
-### Cài đặt PromNode Exporter về và giải nén:
+Cài đặt PromNode Exporter về và giải nén:
 
 ```
 wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
 tar -xzf node_exporter-1.6.1.linux-amd64.tar.gz
 ```
 	
-### Tạo người dùng Promnode-exporter
+Tạo người dùng Promnode-exporter
 
 ```
 useradd -M -s /bin/false node_exporter
@@ -122,19 +122,19 @@ useradd -M -s /bin/false node_exporter
 
 (``-M`` tạo người dùng không chứa thư mục home | ``-s`` là thiết lập shell mặc định tài khoản là ``/bin/false``)
 		
-### Cap quyen chua file node_exporter cho người dùng node_exporter:
+Cap quyen chua file node_exporter cho người dùng node_exporter:
 
 ```
 chown node_exporter:node_exporter node_exporter-1.6.1.linxux-amd64/node_exporter
 ```
 		
-### Di chuyen file den /usr/local/bin/
+Di chuyen file den /usr/local/bin/
 	
 ```
 mv node_exporter-1.6.1.linux-amd64/node_exporter /usr/local/bin/
 ```
 		
-## Tạo file node_exporter.service tai/etc/systemd/system/ với nội dung như sau:
+Tạo file node_exporter.service tai/etc/systemd/system/ với nội dung như sau:
 
 ```
 vim /etc/systemd/system/node_exporter.service
@@ -155,7 +155,7 @@ ExecStart=/usr/local/bin/node_exporter
 WantedBy=multi-user.target
 ```
 
-### Khởi động lại daemon va khởi động dịch vụ:
+Khởi động lại daemon va khởi động dịch vụ:
 	
 ```
 systemctl daemon-reload
@@ -165,7 +165,7 @@ systemctl start node_exporter.service
 systemctl enable node_exporter.service
 ```
 		
-### Thêm những dòng sau để lấy thông tin sau khi khởi động và đưa lên grafana vào file/etc/prometheus/prometheus.yml:
+Thêm những dòng sau để lấy thông tin sau khi khởi động và đưa lên grafana vào file/etc/prometheus/prometheus.yml:
 
 ```
 #my global config
@@ -203,11 +203,11 @@ static_configs:
 - targets: ["localhost:9100"]
 ```
 
-### Để kiểm tra prometheus va prometheusNode-Exporter đã hoạt động chưa:
+Để kiểm tra prometheus va prometheusNode-Exporter đã hoạt động chưa:
 
 Gõ ``<IP address>:9090``
 
-### Trường hợp lỗi trùng cổng
+Trường hợp lỗi trùng cổng
 
 Xác minh thông qua
 ```
@@ -245,7 +245,7 @@ Sau khi chạy lên thì xuất hiện màn hình cmd
 
 Vào trình duyệt gõ ``localhost:9182``
 
-### Cấu hình prometheus tương ứng:
+Cấu hình prometheus tương ứng:
 
 Thêm thông tin vào file ``/etc/prometheus/prometheus.yml``:
 
@@ -558,6 +558,7 @@ https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanage
 ## Installing After Manager on Mac Computers
 
 ## Installing Alert Manager on Ubuntu
+Tải và cài đặt Alert Maneger
 
 ```
 wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-386.tar.gz
