@@ -558,7 +558,7 @@ https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanage
 ## Installing After Manager on Mac Computers
 
 ## Installing Alert Manager on Ubuntu
-Tải và cài đặt Alert Maneger
+Tải và cài đặt Alert Manager
 
 ```
 wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-386.tar.gz
