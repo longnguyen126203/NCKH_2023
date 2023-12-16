@@ -578,7 +578,7 @@ chown -R 755 /var/lib/alertmanager
 chown -R 755 /var/lib/alertmanager/*
 ```
 
-Thêm những dòng sau trong ``/etc/systemd/system/alertmanager.service``
+Tạo alertmanager.service vào ``/etc/systemd/system/
 
 ```
 nano /etc/systemd/system/alertmanager.service
