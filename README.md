@@ -170,37 +170,37 @@ systemctl enable node_exporter.service
 ```
 #my global config
 global:
-    		  scrape_interval: 15s #Set the scrape_interval to very 15 seconds.
-    		Default is every 1 minute.
-    		  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-    		  # scrape_timeout is set to the global default (10s).
+scrape_interval: 15s #Set the scrape_interval to very 15 seconds.
+Default is every 1 minute.
+evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+# scrape_timeout is set to the global default (10s).
     		  
-    		# Altertmanager configuration
-    		alerting:
-    			alertmanagers:
-    			  - static_configs:
-    			      - tagerts:
-    				    # - alertmanager:9093
-    		# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-    		rule_files:
-    		 # - "first_rules.yml"
-    		 # - "second_rules.yml"
-    		# A scrape configuration containing exactly one endpoint to scrape:
-    		# Here it's Prometheus itself.
-    		scrape_configs:
-    		  # The job name is added as a label `job=<job_name>` to any timeseries 
-    		scraped from this config.
-    		  - job_name: "prometheus"
+# Altertmanager configuration
+alerting:
+alertmanagers:
+- static_configs:
+- tagerts:
+# - alertmanager:9093
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "first_rules.yml"
+# - "second_rules.yml"
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+# The job name is added as a label `job=<job_name>` to any timeseries 
+scraped from this config.
+- job_name: "prometheus"
     		  
-    			# metrics_path defaults to '/metrics'
-    			# scheme defaults to 'http'.
+# metrics_path defaults to '/metrics'
+# scheme defaults to 'http'.
     			
-    			static_configs:
-    			  - targets: ["localhost:9090"]
+static_configs:
+- targets: ["localhost:9090"]
     			  
-    		  - job_name: "Node Exporter"
-    			static_configs:
-    			  - targets: ["localhost:9100"]
+- job_name: "Node Exporter"
+static_configs:
+- targets: ["localhost:9100"]
 ```
 
 ### Để kiểm tra prometheus va prometheusNode-Exporter đã hoạt động chưa:
@@ -212,11 +212,10 @@ global:
 ```
 vi /etc/systemd/system/node_exporter.service
 ```
->	*Tại dòng ExecStart, thêm cờ
-	`` --web.listen-address=:7676``
-	7676 là cổng mới để chạy node-exporter
-	Làm điều này rồi lưu ý đổi port tương ứng trong /etc/promethes/prometheus.yml*
-
+>*Tại dòng ExecStart, thêm cờ
+`` --web.listen-address=:7676``
+7676 là cổng mới để chạy node-exporter
+Làm điều này rồi lưu ý đổi port tương ứng trong /etc/promethes/prometheus.yml*
 ---		
 
 # 3.Prometheus-WMI Exporter(Windows Management Instrumentation)
@@ -240,39 +239,39 @@ Lúc này xuất hiện mục forder có tên giống với cái file đã tải
 
 ### Them nhung dong sau de lay thong tin sau khi khoi dong va dua len grafana vao file/etc/prometheus/prometheus.yml:
 ```
-    		# my global config
-    		global:
-    		  scrape_interval: 15s #Set the scrape_interval to very 15 seconds.
-    		Default is every 1 minute.
-    		  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-    		  # scrape_timeout is set to the global default (10s).
+# my global config
+global:
+scrape_interval: 15s #Set the scrape_interval to very 15 seconds.
+Default is every 1 minute.
+evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+# scrape_timeout is set to the global default (10s).
     		  
-    		# Altertmanager configuration
-    		alerting:
-    			alertmanagers:
-    			  - static_configs:
-    			      - tagerts:
-    				    # - alertmanager:9093
-    		# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-    		rule_files:
-    		 # - "first_rules.yml"
-    		 # - "second_rules.yml"
-    		# A scrape configuration containing exactly one endpoint to scrape:
-    		# Here it's Prometheus itself.
-    		scrape_configs:
-    		  # The job name is added as a label `job=<job_name>` to any timeseries 
-    		scraped from this config.
-    		  - job_name: "prometheus"
+# Altertmanager configuration
+alerting:
+alertmanagers:
+- static_configs:
+- tagerts:
+# - alertmanager:9093
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "first_rules.yml"
+# - "second_rules.yml"
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+# The job name is added as a label `job=<job_name>` to any timeseries 
+scraped from this config.
+- job_name: "prometheus"
     		  
-    			# metrics_path defaults to '/metrics'
-    			# scheme defaults to 'http'.
+# metrics_path defaults to '/metrics'
+# scheme defaults to 'http'.
     			
-    			static_configs:
-    			  - targets: ["localhost:9090"]
+static_configs:
+- targets: ["localhost:9090"]
     			  
-    		  - job_name: "wmi_exporter"
-    			static_configs:
-    			  - targets: ["localhost:9182"]
+- job_name: "wmi_exporter"
+static_configs:
+- targets: ["localhost:9182"]
 ```
 		
 ### Sau đó chạy lại trên command: prometheus.exe(Có thông báo server is ready to receive web requests) là thành công
