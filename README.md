@@ -456,5 +456,160 @@ sort_desc(<Instant Vector?) Sorts elements in ascending order
 timestamp(<Instant Vector>) Returns the time stamp of each time series (element)
 ```
 
-## Aggregations OVer Time	
+## Aggregations Over Time
+	
+```
+avg_over_time(<range Vector>) Returns the average of items in a range vector
+sum_over_time(<range Vector>) Returns the sum of items in a range vector
+min_over_time(<range Vector>) Returns the minimum of items in a range vector
+max_over_time(<range Vector>) Returns the maximum of items in a range vector
+count_over_time(<range Vector>) Returns the count of items in a range vector
+
+ví dụ: avg_over_time(node_cpu_seconds_total{cpu="0"}[2h])
+```	
+
+# 6.Alerting
+## Alerts overview
+- Bắt đầu từ Prometheus gửi tín hiệu xuống file .yml(Alerts Definition File) bằng PromQL
+- Tiếp theo Prometheus dựa vào Alert Manager để quản lý(Email, Slack, PagerDuty, WebHook)
+- Server là nơi chứa Prometheus liên lạc qua lại với nhau nhằm gửi alert nhanh nhất để đến alert manager
+
+## Defining Alert Rules
+
+```
+In Linux put the alerts rule files in /etc/prometheus/rules
+```
+
+```
+- In Windows and Mac, create a folder called "rule" or "rules" for the rule .yml files
+- Finder in Mac is like File Explorer in Windows /usr/local/etc 
+```
+
+```
+add in alerts.yml:
+group:
+	- name: Alerts
+	rules:
+	  - alert: Is Node Exporter Up
+	    expr: up{job="node_exporter"}==0
+```
+
+```
+Open prometheus.yml add:
+rule_files:
+	- "rule/alerts.yml"
+```
+
+```
+In linux: sudo systemctl restart prometheus
+```
+
+## Defining a Time Threshold
+The "for" expression
+Demo:
+
+```
+group:
+  - name: Alerts
+    rules:
+	- alert: Is Node Exporter Up
+	  expr: up{job="node_exporter"} == 0
+	  for: 5m
+```
+
+Use the "for" expression to define a time threshold
+
+## Labels, Annotations, and Templates
+Demo:
+
+```
+group:
+  - name: Alerts
+    rules:
+    - alert: Is Node Exporter Up
+      expr: up{job="node_exporter"} == 0
+      for: 0m
+      labels:
+        team: Team Alpha
+        severiry: Critical
+	  annotations:
+	    summary: "{{ $labels.instance}} Is Down"
+		desription: "Team Alpha has to restart the server {{ $labels }} VALUE: {{ $value }}"
+```
+
+```
+systemctl services restart prometheus
+```
+
+## What is Alert Manager
+
+## Installing Alert Manager on Windows
+Vào trang web:
+
+```
+https://prometheus.io/download
+```
+
+```
+Chọn alertmanager bên phải
+https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.windows-amd64.zip
+```
+
+## Installing After Manager on Mac Computers
+
+## Installing Alert Manager on Ubuntu
+
+```
+wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-386.tar.gz
+tar -xzf alertmanager-0.26.0.linux-386.tar.gz
+```
+
+Tạo folder /var/lib/alertmanager và cấp quyền cho người dùng prometheus
+
+```
+cd alertmanager-0.26.0.linux-386
+mkdir /var/lib/alertmanager
+mv * /var/lib/alertmanager/
+cd /var/lib/alertmanager/
+mkdir data
+chown -R promethes:prometheus /var/lib/alertmanager
+chown -R promethes:promethes /var/lib/alertmanager/*
+chown -R 755 /var/lib/alertmanager
+chown -R 755 /var/lib/alertmanager/*
+```
+
+Thêm những dòng sau trong ``/etc/systemd/system/alertmanager.service``
+
+```
+nano /etc/systemd/system/alertmanager.service
+```
+
+```
+[Unit]
+Description=Prometheus Alert Manager
+Documentation=https://prometheus.io/docs/introduction/overview/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=prometheus
+Group=prometheus
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart=/var/lib/alertmanager/alertmanager --storage.path="/var/lib/alertmanager/data" --config.file="/var/lib/alertmanager/alertmanager.yml"
+
+SyslogIdentifier=prometheus_alert_manager
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Khởi động lại daemon và khởi động dịch vụ:
+
+```
+systemctl daemon-reload
+systemctl start alertmanager
+systemctl enable alertmanager
+```	
 	
