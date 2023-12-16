@@ -204,40 +204,51 @@ static_configs:
 ```
 
 ### Để kiểm tra prometheus va prometheusNode-Exporter đã hoạt động chưa:
+
+Gõ ``<IP address>:9090``
+
+### Trường hợp lỗi trùng cổng
+
+Xác minh thông qua
 ```
-<IP address>:9090 
+systemctl status node_exporter.service
 ```
 
-### Nếu trường hợp trùng cổng thì:
+Để khắc phục lỗi này:
 ```
 vi /etc/systemd/system/node_exporter.service
 ```
->*Tại dòng ExecStart, thêm cờ
-`` --web.listen-address=:7676``
-7676 là cổng mới để chạy node-exporter
+
+Tại dòng ExecStart, thêm cờ ``--web.listen-address=:7676``
+
+7676 là port mới để chạy node-exporter
 Làm điều này rồi lưu ý đổi port tương ứng trong /etc/promethes/prometheus.yml*
+
 ---		
 
 # 3.Prometheus-WMI Exporter(Windows Management Instrumentation)
+
 - Quản lý dữ liệu và hệ thống trên hệ điều hành Windows
 - WMI Exporter là third-party Prometheus exporter cho Windows
 
 ## Tải xuống và cài đặt:
+
 ```
 https://github.com/prometheus-community/windows_exporter/releases/download/v0.24.0/windows_exporter-0.24.0-386.exe
 ```
 
-- Click chuột --> Run để chạy chương trình
+Click chuột --> Run để chạy chương trình
 	
-### Sau khi chạy lên thì xuất hiện màn hình command:
-```	
-Vào trình duyệt gõ localhost:9182
+Sau khi chạy lên thì xuất hiện màn hình cmd
 
-Copy localhost:9182 --> Past vào màn hình command
-Lúc này xuất hiện mục forder có tên giống với cái file đã tải trong đường link bên trên
-```
+### Kiểm tra exporter đã chạy chưa:
 
-### Them nhung dong sau de lay thong tin sau khi khoi dong va dua len grafana vao file/etc/prometheus/prometheus.yml:
+Vào trình duyệt gõ ``localhost:9182``
+
+### Cấu hình prometheus tương ứng:
+
+Thêm thông tin vào file ``/etc/prometheus/prometheus.yml``:
+
 ```
 # my global config
 global:
@@ -246,7 +257,7 @@ Default is every 1 minute.
 evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
 # scrape_timeout is set to the global default (10s).
     		  
-# Altertmanager configuration
+# Alertmanager configuration
 alerting:
 alertmanagers:
 - static_configs:
@@ -274,8 +285,15 @@ static_configs:
 - targets: ["localhost:9182"]
 ```
 		
-### Sau đó chạy lại trên command: prometheus.exe(Có thông báo server is ready to receive web requests) là thành công
-### Cuối cùng chạy trên trình duyệt <địa chỉ ip>:9090 --> vào targets để kiểm tra.
+Sau đó chạy lại trên cmd:
+
+```
+prometheus.exe
+```
+
+Nếu có thông báo ``server is ready to receive web requests`` là thành công
+
+Cuối cùng, chạy trên trình duyệt ``<địa chỉ ip>:9090`` --> vào targets để kiểm tra.
 
 ---
 	
@@ -283,7 +301,7 @@ static_configs:
 ## Data Model:
 - Prometheus lữu trữ dữ liệu như là chuỗi thời gian
 - Mỗi chuỗi thời gian được xác định bởi tên số liệu và các lables
-	- Lables là khóa và cặp giá trị
+	- Labels là khóa và cặp giá trị
 		<metric name? {key=value, key=value,..}
 
 			ví dụ: auth_api_hit {count=1, time_taken=800}
