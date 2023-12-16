@@ -55,7 +55,7 @@ chown -R prometheus:prometheus /var/lib/prometheus/
 mkdir /etc/prometheus
 ```
 		
-### Chép folder ``consoles`` và ``console_libries`` vào
+### Chép folder ``consoles`` và ``console_libraries`` vào
 
 ```
 cp -r prometheus-2.47.0.linux-amd64/consoles/ /etc/prometheus/
