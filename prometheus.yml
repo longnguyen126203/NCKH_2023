@@ -1,33 +1,103 @@
-#my global config
+# global config
 global:
-scrape_interval: 15s #Set the scrape_interval to very 15 seconds.
-Default is every 1 minute.
-evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-# scrape_timeout is set to the global default (10s).
-    		  
-# Altertmanager configuration
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
 alerting:
-alertmanagers:
-- static_configs:
-- tagerts:
-# - alertmanager:9093
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-# - "first_rules.yml"
-# - "second_rules.yml"
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
 scrape_configs:
-# The job name is added as a label `job=<job_name>` to any timeseries 
-scraped from this config.
-- job_name: "prometheus"
-    		  
-# metrics_path defaults to '/metrics'
-# scheme defaults to 'http'.
-    			
-static_configs:
-- targets: ["localhost:9090"]
-    			  
-- job_name: "Node Exporter"
-static_configs:
-- targets: ["localhost:9100"]
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "node"
+
+    static_configs:
+      # PSC
+      - targets: ["10.20.4.11:9182:9182"]
+        labels:
+          group: 'PSC - Server Web 01'
+
+      - targets: ['10.20.4.12:9182']
+        labels:
+          group: 'PSC - Server Web 02'
+
+      - targets: ['10.20.4.13:9182']
+        labels:
+          group: 'PSC - Server Web 03'
+
+      - targets: ['10.20.4.14:9182']
+        labels:
+          group: 'PSC - Server Web 04'
+
+      - targets: ['10.20.4.15:9182']
+        labels:
+          group: 'PSC - Server Web 05'
+
+      - targets: ['10.20.4.16:9182']
+        labels:
+          group: 'PSC - Server Web 06'
+
+      - targets: ['10.20.4.17:9182']
+        labels:
+          group: 'PSC - Server Web 07'
+
+      - targets: ['10.20.4.18:9182']
+        labels:
+          group: 'PSC - Server Web 08'
+
+      - targets: ['10.20.4.25:9182']
+        labels:
+          group: 'PSC - DB Web 01'
+
+      - targets: ['10.20.4.22:9182']
+        labels:
+          group: 'PSC - DB Web 02'
+
+      - targets: ['10.20.4.23:9182']
+        labels:
+          group: 'PSC - DB Web 03'
+
+      - targets: ['10.20.4.24:9182']
+        labels:
+          group: 'PSC - DB Web 04'
+
+      # DLU
+      - targets: ['10.20.0.4:9182']
+        labels:
+          group: 'DLU-DNS'
+
+      - targets: ['10.20.0.8:9182']
+        labels:
+          group: 'DLU MUSEUM 2023'
+
+      - targets: ['10.20.0.41:9182']
+        labels:
+          group: 'DLU-Library'
+
+      - targets: ['10.20.0.42:9182']
+        labels:
+          group: 'DLU-SCHOOLAR'
+
+      # LMS
+      - targets: ['10.20.0.21:9100']
+        labels:
+          group: 'DLU-04'
