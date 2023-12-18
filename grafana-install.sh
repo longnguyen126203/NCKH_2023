@@ -12,7 +12,7 @@ useradd -M -s /bin/false grafana
 chown -R grafana:grafana 'grafana-10.2.2'
 
 # Move the files to /usr/local/bin/
-mv 'grafana-10.2.2'/bin/* /usr/local/bin/
+mv 'grafana-v10.2.2'/bin/* /usr/local/bin/
 
 # Configure service file
 cat > /etc/systemd/system/grafana.service << EOF
