@@ -5,12 +5,6 @@ wget 'https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_
 tar -xzf 'node_exporter-1.6.1.linux-amd64.tar.gz'
 rm 'node_exporter-1.6.1.linux-amd64.tar.gz'
 
-# Create node_exporter user
-useradd -M -s /bin/false node_exporter
-
-# Give file ownership to user node_exporter
-chown -R node_exporter:node_exporter 'node_exporter-1.6.1.linux-amd64/node_exporter'
-
 # Move the file to /usr/local/bin/
 mv 'node_exporter-1.6.1.linux-amd64/node_exporter' /usr/local/bin/
 
@@ -21,8 +15,6 @@ Description=Node Exporter
 After=network-online.target
 
 [Service]
-User=node_exporter
-Group=node_exporter
 Type=simple
 ExecStart=/usr/local/bin/node_exporter
 
