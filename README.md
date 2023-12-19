@@ -612,5 +612,74 @@ Khởi động lại daemon và khởi động dịch vụ:
 systemctl daemon-reload
 systemctl start alertmanager
 systemctl enable alertmanager
-```	
+```
 	
+## Blackbox_Exporter
+Tải và cài đặt Blackbox_Exporter
+
+```
+wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.freebsd-amd64.tar.gz
+tar -zxf blackbox_exporter-0.24.0.freebsd-amd64.tar.gz
+```
+
+Di chuyển file đến thư mục /usr/local/bin
+
+```
+mv blackbox_exporter /usr/local/bin
+```
+
+Tạo thư mục và chuyển đến /etc/blackbox_exporter
+
+```
+mkdir -p /etc/blackbox_exporter
+mv blackbox.yml /etc/blackbox
+```
+
+Tạo người dùng và cấp quyền cho người dùng vào /usr/local/bin/blackbox_exporter
+
+```
+useradd -rs /bin/false blackbox
+chown blackbox:blackbox /usr/local/bin/blackbox_exporter
+chown -R blackbox:blackbox /etc/blackbox/*
+```
+
+Thêm những dòng sau của ``blackbox.service`` trong ``/lib/systemd/system``
+
+```
+cd /lib/systemd/system
+touch blackbox.service
+```
+
+```
+[Unit]
+Description=Blackbox Exporter Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=blackbox
+Group=blackbox
+ExecStart=/usr/local/bin/blackbox_exporter \
+  --config.file=/etc/blackbox/blackbox.yml \
+  --web.listen-address=":9115"
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Khởi động lại daemon và khởi động dịch vụ
+
+```
+systemctl daemon-reload
+systemctl enable blackbox.service
+systemctl start blackbox.service
+```
+
+Truy cập vào trình duyệt để kiểm tra
+
+```
+http://localhost:9115
+```
