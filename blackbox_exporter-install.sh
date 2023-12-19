@@ -20,7 +20,7 @@ chown blackbox:blackbox /etc/blackbox/blackbox.yml
 # Configure service file
 cat > /etc/systemd/system/blackbox.service << EOF
 [Unit]
-Description=/etc/blackbox/Blackbox Exporter
+Description=Blackbox Exporter
 Wants=network-online.target
 After=network-online.target
 
@@ -29,7 +29,7 @@ Type=simple
 User=blackbox
 Group=blackbox
 ExecStart=/usr/local/bin/blackbox_exporter \
-  --config.file=blackbox.yml \
+  --config.file=/etc/blackbox/blackbox.yml \
   --web.listen-address=":9115"
 
 Restart=always
