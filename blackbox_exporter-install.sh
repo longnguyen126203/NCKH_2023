@@ -20,7 +20,7 @@ chown blackbox:blackbox /etc/blackbox/blackbox.yml
 # Configure service file
 cat > /etc/systemd/system/blackbox.service << EOF
 [Unit]
-Description=Blackbox Exporter
+Description=/etc/blackbox/Blackbox Exporter
 Wants=network-online.target
 After=network-online.target
 
