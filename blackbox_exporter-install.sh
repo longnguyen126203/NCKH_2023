@@ -38,6 +38,19 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
+#Configure yml file
+cat << EOF
+http_custom_ca_example:
+    prober: http
+    http:
+      preferred_ip_protocol: "ip4"
+      tls_config:
+        #cert_file: "/etc/blackbox_exporter/fullchain1.pem"
+        #key_file: "/etc/blackbox_exporter/privkey1.pem"
+        insecure_skip_verify: true
+        ca_file: "/etc/blackbox_exporter/STAR_dlu_edu_vn.crt" | echo >> /etc/blackbox/blackbox.yml
+EOF | echo >> /etc/blackbox/blackbox.yml
+
 # Reload daemon and restart service
 systemctl daemon-reload
 systemctl start blackbox.service
