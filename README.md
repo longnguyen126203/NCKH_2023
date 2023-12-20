@@ -689,8 +689,8 @@ http://localhost:9115
 ```
 curl -s https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest   | grep browser_download_url   | grep linux-amd64   | cut -d '"' -f 4   | wget -qi -
 tar xvf mysqld_exporter*.tar.gz
-sudo mv  mysqld_exporter-*.linux-amd64/mysqld_exporter /usr/local/bin/
-sudo chmod +x /usr/local/bin/mysqld_exporter
+mv  mysqld_exporter-*.linux-amd64/mysqld_exporter /usr/local/bin/
+chmod +x /usr/local/bin/mysqld_exporter
 ```
 
 ## Create Prometheus Exporter Database User to Access the Database, Scrape Metrics & Provide Grants
