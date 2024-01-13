@@ -1,0 +1,11 @@
+groups:
+  - name: CpuUsage
+    rules:
+      - alert: HighCPUUsage
+        expr: sum by (instance) (avg by (mode, instance) (rate(node_cpu_seconds_total{mode!="idle"}[2m]))) * 100 > 60
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage on {{ $labels.instance }} is greater than 60%."
