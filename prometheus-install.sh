@@ -13,6 +13,7 @@ chown -R prometheus:prometheus 'prometheus-2.48.1.linux-amd64/prometheus'
 
 # Move the file to /usr/local/bin/
 mv 'prometheus-2.48.1.linux-amd64/prometheus' /usr/local/bin/
+mv 'prometheus-2.48.1.linux-amd64/promtool' /usr/local/bin/
 
 # Configure service file
 cat > /etc/systemd/system/prometheus.service << EOF
