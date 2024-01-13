@@ -9,3 +9,11 @@ groups:
         annotations:
           summary: "High CPU usage on {{ $labels.instance }}"
           description: "CPU usage on {{ $labels.instance }} is greater than 60%."
+      - alert: WindowsServerCpuUsage
+        expr: 100 - (avg by (instance) (rate(windows_cpu_time_total{mode="idle"}[2m])) * 100) > 80
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: Windows Server CPU Usage (instance {{ $labels.instance }})
+          description: "CPU Usage is more than 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"

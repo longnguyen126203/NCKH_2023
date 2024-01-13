@@ -9,3 +9,14 @@ groups:
         annotations:
           summary: Prometheus target missing (instance {{ $labels.instance }})
           description: "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - name: CollectorError
+    rules:
+      - alert: WindowsServerCollectorError
+        expr: windows_exporter_collector_success == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: Windows Server collector Error (instance {{ $labels.instance }})
+          description: "Collector {{ $labels.collector }} was not successful\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"

@@ -1,0 +1,11 @@
+groups:
+  - name: WindowsServerService
+    rules:
+      - alert: WindowsServerCollectorError
+        expr: windows_exporter_collector_success == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: Windows Server collector Error (instance {{ $labels.instance }})
+          description: "Collector {{ $labels.collector }} was not successful\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
