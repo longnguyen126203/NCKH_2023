@@ -1,19 +1,19 @@
 #!/bin/sh
 
 # Install prometheus and untar
-wget 'https://github.com/prometheus/prometheus/releases/download/v2.48.1/prometheus-2.48.1.linux-amd64.tar.gz'
-tar -zxvf 'prometheus-2.48.1.linux-amd64.tar.gz'
-rm 'prometheus-2.48.1.linux-amd64.tar.gz'
+wget 'https://github.com/prometheus/prometheus/releases/download/v2.50.1/prometheus-2.50.1.linux-amd64.tar.gz'
+tar -zxvf 'prometheus-2.50.1.linux-amd64.tar.gz'
+rm 'prometheus-2.50.1.linux-amd64.tar.gz'
 
 # Create prometheus user
 useradd -M -s /bin/false prometheus
 
 # Give file ownership to user node_exporter
-chown -R prometheus:prometheus 'prometheus-2.48.1.linux-amd64/prometheus'
+chown -R prometheus:prometheus 'prometheus-2.50.1.linux-amd64/prometheus'
 
 # Move the file to /usr/local/bin/
-mv 'prometheus-2.48.1.linux-amd64/prometheus' /usr/local/bin/
-mv 'prometheus-2.48.1.linux-amd64/promtool' /usr/local/bin/
+mv 'prometheus-2.50.1.linux-amd64/prometheus' /usr/local/bin/
+mv 'prometheus-2.50.1.linux-amd64/promtool' /usr/local/bin/
 
 # Configure service file
 cat > /etc/systemd/system/prometheus.service << EOF
