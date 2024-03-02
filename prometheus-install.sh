@@ -37,6 +37,7 @@ WantedBy=multi-user.target
 EOF
 
 # Create config file
+mkdir /etc/prometheus
 cat > /etc/prometheus/prometheus.yml << EOF
 # Sample config for Prometheus.
 
