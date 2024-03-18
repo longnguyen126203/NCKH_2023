@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install mysql_exporter and untar
-curl -s https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest   | grep browser_download_url   | grep linux-amd64   | cut -d '"' -f 4   | wget -qi -
+wget https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest   | grep browser_download_url   | grep linux-amd64   | cut -d '"' -f 4   | wget -qi -
 tar -xvf 'mysqld_exporter*.tar.gz'
 rm 'mysqld_exporter*.tar.gz'
 
