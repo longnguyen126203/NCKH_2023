@@ -2,8 +2,8 @@ groups:
   - name: MemoryUsage
     rules:
       - alert: HostOutOfMemory
-        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 > 90
-        for: 2m
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 > 80
+        for: 5m
         labels:
           severity: warning
         annotations:
@@ -11,10 +11,10 @@ groups:
           description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: WindowsServerMemoryUsage
-        expr: 100 - ((windows_os_physical_memory_free_bytes / windows_cs_physical_memory_bytes) * 100) > 90
-        for: 2m
+        expr: 100 - ((windows_os_physical_memory_free_bytes / windows_cs_physical_memory_bytes) * 100) > 80
+        for: 5m
         labels:
           severity: warning
         annotations:
           summary: Windows Server memory Usage (instance {{ $labels.instance }})
-          description: "Memory usage is more than 90%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Memory usage is more than 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
