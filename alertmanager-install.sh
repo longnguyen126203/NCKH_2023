@@ -2,13 +2,13 @@
 #https://devopscube.com/prometheus-alert-manager/
 
 # Install alertmanager and untar
-wget 'https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz'
-tar -xzf 'alertmanager-0.26.0.linux-amd64.tar.gz'
-rm 'alertmanager-0.26.0.linux-amd64.tar.gz'
+wget 'https://github.com/prometheus/alertmanager/releases/download/v0.27.0/alertmanager-0.27.0.linux-amd64.tar.gz'
+tar -xzf 'alertmanager-0.27.0.linux-amd64.tar.gz'
+rm 'alertmanager-0.27.0.linux-amd64.tar.gz'
 
 # Move the binaries to /usr/local/bin/
-mv 'alertmanager-0.26.0.linux-amd64/alertmanager' /usr/local/bin/
-mv 'alertmanager-0.26.0.linux-amd64/amtool' /usr/local/bin/
+mv 'alertmanager-0.27.0.linux-amd64/alertmanager' /usr/local/bin/
+mv 'alertmanager-0.27.0.linux-amd64/amtool' /usr/local/bin/
 
 # Create the storage directory
 mkdir /var/lib/alertmanager
