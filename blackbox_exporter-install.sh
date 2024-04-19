@@ -2,15 +2,15 @@
 
 # Download blackbox_exporter and untar
 wget 'https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz'
-tar -zxf 'blackbox_exporter-0.24.0.linux-amd64.tar.gz'
-rm 'blackbox_exporter-0.24.0.linux-amd64.tar.gz'
+tar -zxf 'blackbox_exporter-0.25.0.linux-amd64.tar.gz'
+rm 'blackbox_exporter-0.25.0.linux-amd64.tar.gz'
 
 # Move the binary to /usr/local/bin
-mv 'blackbox_exporter-0.24.0.linux-amd64'/blackbox_exporter /usr/local/bin
+mv 'blackbox_exporter-0.25.0.linux-amd64'/blackbox_exporter /usr/local/bin
 
 # Move the config file to /etc/blackbox
 mkdir /etc/blackbox
-mv 'blackbox_exporter-0.24.0.linux-amd64'/blackbox.yml /etc/blackbox
+mv 'blackbox_exporter-0.25.0.linux-amd64'/blackbox.yml /etc/blackbox
 
 # Configure ownership for the service
 useradd -M -s /bin/false blackbox
