@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Install grafana and untar
-wget 'https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0.linux-amd64.tar.gz'
-tar -zxvf 'grafana-enterprise-11.0.0.linux-amd64.tar.gz'
-rm 'grafana-enterprise-11.0.0.linux-amd64.tar.gz'
+wget 'https://dl.grafana.com/enterprise/release/grafana-enterprise-10.3.3.linux-amd64.tar.gz'
+tar -zxvf 'grafana-enterprise-10.3.3.linux-amd64.tar.gz'
+rm 'grafana-enterprise-10.3.3.linux-amd64.tar.gz'
 
 # Create grafana user
 #useradd -M -s /bin/false grafana
@@ -12,7 +12,7 @@ rm 'grafana-enterprise-11.0.0.linux-amd64.tar.gz'
 #chown -R grafana:grafana 'grafana-11.0.0'
 
 # Move the files to /usr/local/bin/
-mv 'grafana-v11.0.0'/bin/* /usr/local/bin/
+mv 'grafana-v10.3.3'/bin/* /usr/local/bin/
 
 # Configure service file
 cat > /etc/systemd/system/grafana.service << EOF
